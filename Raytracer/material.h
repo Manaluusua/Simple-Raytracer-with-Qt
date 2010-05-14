@@ -7,10 +7,13 @@ class Material
 {
 public:
 
-    Material( QVector3D surf_col =  QVector3D(0,0,0) , QVector3D spec =  QVector3D(10,10,10), qreal shininess=32.f, qreal spec_amount=50, QVector3D ambient=QVector3D(1,1,1), qreal amb_amount =10, qreal reflection = 0, qreal refraction = 0 );
+    Material( QVector3D surf_col =  QVector3D(0,0,0), qreal diff_amount = 1 , QVector3D spec =  QVector3D(10,10,10), qreal shininess=32.f, qreal spec_amount=50, QVector3D ambient=QVector3D(1,1,1), qreal amb_amount =10, qreal reflection = 0, qreal refraction = 0 );
 
     QVector3D getAmbientColor()const{return ambient_col_;}
     void setAmbientColor(QVector3D col){ambient_col_ = col;}
+
+    qreal getDiffuseAmount()const{return diff_amount_;}
+    void setDiffuseAmount(qreal am){diff_amount_ = am;}
 
     QVector3D getSurfaceColor() const{return surf_col_;}
     void setSurfaceColor(QVector3D col){surf_col_ = col;}
@@ -38,6 +41,7 @@ public:
 
 private:
     QVector3D surf_col_;
+    qreal diff_amount_;
     QVector3D ambient_col_;
     qreal ambient_amount_;
 

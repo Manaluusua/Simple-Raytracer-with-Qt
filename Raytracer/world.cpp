@@ -17,17 +17,17 @@ void World::createWorld()
    // l = new Light(QVector3D(20,-10,-40),QVector3D(0,0,0), Light::POINT, QVector3D(0,80,35) );
    // lights_.append(l);
 
-    Sphere *s = new Sphere(QVector3D(4,0,-50), 4);
-    Material* mat = new Material(QVector3D(0,0,0),QVector3D(50,50,50),1024.f,150, QVector3D(1,1,1),5,0.20);
+    Sphere *s = new Sphere(QVector3D(4,0,-48), 4);
+    Material* mat = new Material(QVector3D(0,0,0),1,QVector3D(50,50,50),1024.f,150, QVector3D(1,1,1),5,0.4);
     Object *obj = new Object(s,mat);
     objects_.append(obj);
     s = new Sphere(QVector3D(-4,0,-50), 3);
-     mat = new Material(QVector3D(0,0,5),QVector3D(50,50,50),512.f,40, QVector3D(1,1,1),5);
+     mat = new Material(QVector3D(40,10,5),1,QVector3D(50,50,50),64.f,5, QVector3D(1,1,1),5,0.3);
     obj = new Object(s,mat);
     objects_.append(obj);
 
     Plane* p = new Plane(QVector3D(0,1,0),4);
-     mat = new Material(QVector3D(3,0,0),QVector3D(50,50,50),64.f,15, QVector3D(1,1,1),5);
+     mat = new Material(QVector3D(3,0,0),1,QVector3D(50,50,50),64.f,0, QVector3D(1,1,1),5);
     obj = new Object(p,mat);
     objects_.append(obj);
 

@@ -122,7 +122,8 @@ QVector3D RayTracer::raytrace(Ray &ray, int depth)
         {
             QVector3D reflection_vector = ray.getDirection();
             reflection_vector =  utils::reflectVector(reflection_vector,normal);
-            Ray reflection_ray(inters_point, reflection_vector);
+            reflection_vector.normalize();
+            Ray reflection_ray(inters_point+reflection_vector*0.01, reflection_vector);
             reflection_color += raytrace(reflection_ray,depth);
         }
         if(refraction_amount>0 )
@@ -148,7 +149,7 @@ QVector3D RayTracer::getDiffuseFactor(Light*const light,const QVector3D *point, 
     qreal dot = utils::clamp(normal->dotProduct( *normal, light_dir));
 
 
-    QVector3D color = mat->getSurfaceColor()* (light->getDiffuseColor()*dot);
+    QVector3D color = mat->getSurfaceColor()* mat->getDiffuseAmount() *light->getDiffuseColor()*dot;
     return color;
 }
 
