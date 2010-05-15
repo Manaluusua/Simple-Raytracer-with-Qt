@@ -64,7 +64,7 @@ QColor RayTracer::getColorForPixel(int x, int y)
     return utils::ConvertAndClampToColor(raytrace(ray,2));
 }
 
-QVector3D RayTracer::raytrace(Ray &ray, int depth)
+QVector3D RayTracer::raytrace(Ray &ray, int depth,Object *ignore)
 {
     depth--;
     QVector3D final_col(0,0,0);
@@ -80,7 +80,7 @@ QVector3D RayTracer::raytrace(Ray &ray, int depth)
         Geometry::RayQueryResults result =  obj->getGeometry()->getIntersectionInfo(ray);
         if(result.hit)
         {
-            if(nearest_distance > result.distance || nearest_distance==-1)
+            if((nearest_distance > result.distance || nearest_distance==-1) && obj !=ignore)
             {
                 nearest = obj;
                 nearest_distance = result.distance;
@@ -123,8 +123,8 @@ QVector3D RayTracer::raytrace(Ray &ray, int depth)
             QVector3D reflection_vector = ray.getDirection();
             reflection_vector =  utils::reflectVector(reflection_vector,normal);
             reflection_vector.normalize();
-            Ray reflection_ray(inters_point+reflection_vector*0.01, reflection_vector);
-            reflection_color += raytrace(reflection_ray,depth);
+            Ray reflection_ray(inters_point+reflection_vector, reflection_vector);
+            reflection_color += raytrace(reflection_ray,depth, nearest);
         }
         if(refraction_amount>0 )
         {

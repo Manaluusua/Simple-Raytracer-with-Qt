@@ -30,7 +30,7 @@ private:
     QVector3D getLightDir(Light* const light,const QVector3D*  point);
     QColor getColorForPixel(int x, int y);
     Ray getCameraToViewportRay(int image_space_x, int image_space_y);
-    QVector3D raytrace(Ray &ray, int depth);
+    QVector3D raytrace(Ray &ray, int depth, Object *ignore = 0);
     QVector<Light*> getAffectingLights(Object* obj,const QVector3D& point);
     QVector3D getDiffuseFactor(Light* const light,const QVector3D *point, const QVector3D *normal, const Material* mat);
     QVector3D getSpecularFactor(Light* const light,const QVector3D *point, const QVector3D *normal,const QVector3D *viewdir, const Material* mat);
