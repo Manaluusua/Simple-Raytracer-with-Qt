@@ -7,7 +7,7 @@
 #include "world.h"
 
 class Material;
-
+class PoissonsDiscGenerator;
 class RayTracer : public QThread
 {
     Q_OBJECT
@@ -27,10 +27,10 @@ private:
     World *world_;
     QMutex lock;
 
-    const static qreal aa_delta_treshold_=150.f;
+    const static qreal aa_delta_treshold_=50.f;
 
     void antialias();
-    QVector3D multisample(int x, int y);
+    QVector3D multisample(int x, int y,PoissonsDiscGenerator& generator);
     qreal calculateMaximumDelta(int x, int y);
 
     int depth_;

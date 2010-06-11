@@ -10,6 +10,7 @@ INPUT(
 ./debug\renderwindow.o
 ./debug\camera.o
 ./debug\sphere.o
+./debug\poissonsdiscgenerator.o
 ./debug\moc_raytracer.o
 ./debug\moc_renderwindow.o
 );

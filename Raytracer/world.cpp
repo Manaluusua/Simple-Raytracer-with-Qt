@@ -27,7 +27,7 @@ void World::createWorld()
     objects_.append(obj);
 
     Plane* p = new Plane(QVector3D(0,1,0),4);
-     mat = new Material(QVector3D(3,0,0),1,QVector3D(50,50,50),64.f,0, QVector3D(1,1,1),5);
+     mat = new Material(QVector3D(3,0,0),1,QVector3D(50,50,50),64.f,5, QVector3D(1,1,1),5,0.7);
     obj = new Object(p,mat);
     objects_.append(obj);
 

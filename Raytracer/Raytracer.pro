@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     raytracer.cpp \
     renderwindow.cpp \
     camera.cpp \
-    sphere.cpp
+    sphere.cpp \
+    poissonsdiscgenerator.cpp
 HEADERS += plane.h \
     utils.h \
     ray.h \
@@ -26,5 +27,6 @@ HEADERS += plane.h \
     raytracer.h \
     renderwindow.h \
     camera.h \
-    sphere.h
+    sphere.h \
+    poissonsdiscgenerator.h
 FORMS += renderwindow.ui

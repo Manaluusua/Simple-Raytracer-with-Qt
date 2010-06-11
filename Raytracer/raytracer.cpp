@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "light.h"
 #include <cmath>
+#include "poissonsdiscgenerator.h"
 
 RayTracer::RayTracer(qreal image_width, qreal image_height, World *world, int depth):
         renderImage_(new QImage(image_width, image_height, QImage::Format_ARGB32)),
@@ -11,7 +12,7 @@ RayTracer::RayTracer(qreal image_width, qreal image_height, World *world, int de
         lock(QMutex::NonRecursive),
         depth_(depth)
 {
-    Camera* camera = new Camera(QVector3D(4,0,0), QVector3D(0,0,-1), static_cast<qreal>(image_width)/image_height, 4    );
+    Camera* camera = new Camera(QVector3D(4,0,10), QVector3D(0,0,-1), static_cast<qreal>(image_width)/image_height, 4    );
     world_->setCamera(camera);
 }
 
@@ -187,7 +188,14 @@ QVector3D RayTracer::getLightDir(Light* const light,const QVector3D* point)
 
 void RayTracer::antialias()
 {
+    PoissonsDiscGenerator disc_generator;
     QSize img_size = renderImage_->size();
+    qreal area_x = 1.f/img_size.width();
+    qreal area_y = 1.f/img_size.height();
+    int num_of_samples = 12;
+    qreal min_dist = (area_x + area_y)/(2.f*num_of_samples);
+    disc_generator.generatePoissonsDisc(min_dist, num_of_samples,area_x, area_y);
+
     for(int y = 0; y<img_size.height();y++)
     {
         lock.lock();
@@ -196,7 +204,7 @@ void RayTracer::antialias()
         {
             if(calculateMaximumDelta(x,y)>aa_delta_treshold_)
             {
-                renderImage_->setPixel(x,y, utils::convertAndClampToColor(multisample(x,y)).rgba());
+                renderImage_->setPixel(x,y, utils::convertAndClampToColor(multisample(x,y, disc_generator)).rgba());
             }
         }
         lock.unlock();
@@ -205,7 +213,7 @@ void RayTracer::antialias()
 
 }
 
-QVector3D RayTracer::multisample(int x, int y)
+QVector3D RayTracer::multisample(int x, int y, PoissonsDiscGenerator& generator)
 {
     QRgb rgb = renderImage_->pixel(x,y);
     QVector3D original_color(qRed(rgb), qGreen(rgb), qBlue(rgb));
@@ -213,23 +221,21 @@ QVector3D RayTracer::multisample(int x, int y)
     qreal move_y = 1.f/renderImage_->height();
     qreal origin_x = static_cast<qreal>(x)*move_x;
     qreal origin_y = static_cast<qreal>(y)*move_y;
-    //move_x /=2;
-    //move_y /=2;
+
+
+
     Camera* cam = world_->getCamera();
     utils::convertToViewportRelative(origin_x, origin_y);
-
-    for(qreal i = origin_x-move_x; i<=origin_x+move_x; i += move_x)
+    SampleList samples = generator.getDiscSamples();
+    QPair<qreal, qreal> sample;
+    foreach(sample, samples)
     {
-        for(qreal j = origin_y-move_y; j<=origin_y+move_y; j+= move_y)
-        {
-            if(i!=origin_x || j!=origin_y)
-            {
-                original_color += raytrace(cam->getCameraToViewportRay(i, j),depth_);
-            }
-        }
+        original_color += raytrace(cam->getCameraToViewportRay(origin_x + sample.first, origin_y + sample.second),depth_);
     }
-    original_color /= 9;
 
+
+
+    original_color /= samples.size()+1;
     return original_color;
 
 }
