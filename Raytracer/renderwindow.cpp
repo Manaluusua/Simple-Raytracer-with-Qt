@@ -35,7 +35,7 @@ void RenderWindow::render()
         delete tracer;
         tracer=0;
     }
-    tracer = new RayTracer(image_size.width(), image_size.height(), world_);
+    tracer = new RayTracer(image_size.width(), image_size.height(), world_,4);
     QObject::connect(tracer, SIGNAL(partialRendering(QImage*)),this, SLOT(displayPartialImage(QImage*)));
     QObject::connect(tracer, SIGNAL(renderingReady(QImage*)),this,SLOT(renderingFinished(QImage*)));
     tracer->start();

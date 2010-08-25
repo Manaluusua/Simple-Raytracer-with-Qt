@@ -120,22 +120,42 @@ QVector3D RayTracer::raytrace(Ray ray, int depth,Object *ignore)
 
     if(depth>0)
     {
+        QVector3D reflection_vector;
+        QVector3D refraction_vector;
 
         if(reflection_amount>0 )
         {
-            QVector3D reflection_vector = ray.getDirection();
+            reflection_vector = ray.getDirection();
             reflection_vector =  utils::reflectVector(reflection_vector,normal);
             reflection_vector.normalize();
-            Ray reflection_ray(inters_point+reflection_vector, reflection_vector);
+            Ray reflection_ray(inters_point, reflection_vector);
             reflection_color += raytrace(reflection_ray,depth, nearest);
         }
         if(refraction_amount>0 )
         {
+            refraction_vector = ray.getDirection();
+            refraction_vector = utils::refractVector(refraction_vector, normal,nearest->getMaterial()->getRefractionAngle());
+            refraction_vector.normalize();
+            Ray refraction_ray(inters_point, refraction_vector);
+            refraction_color += raytrace(refraction_ray,depth,nearest);
+        }
 
+        if( refraction_amount>0)
+        {
+
+            utils::doFresnel(normal, ray.getDirection(), reflection_amount, refraction_amount);
         }
     }
 
-    final_col += diffuse_amount*diffuse_col + refraction_amount*refraction_color + reflection_amount*reflection_color;
+    if( refraction_amount>0 && reflection_amount>0)
+    {
+
+        final_col += refraction_amount*(diffuse_amount*diffuse_col + refraction_color) + reflection_amount*reflection_color;
+    }
+    else
+    {
+        final_col += diffuse_amount*diffuse_col + refraction_amount*refraction_color + reflection_amount*reflection_color;
+    }
     return final_col;
 
 }

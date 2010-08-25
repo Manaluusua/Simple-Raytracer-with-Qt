@@ -7,7 +7,7 @@ class Material
 {
 public:
 
-    Material( QVector3D surf_col =  QVector3D(0,0,0), qreal diff_amount = 1 , QVector3D spec =  QVector3D(10,10,10), qreal shininess=32.f, qreal spec_amount=50, QVector3D ambient=QVector3D(1,1,1), qreal amb_amount =10, qreal reflection = 0, qreal refraction = 0 );
+    Material( QVector3D surf_col =  QVector3D(0,0,0), qreal diff_amount = 1 , QVector3D spec =  QVector3D(10,10,10), qreal shininess=32.f, qreal spec_amount=50, QVector3D ambient=QVector3D(1,1,1), qreal amb_amount =10, qreal reflection = 0, qreal refraction = 0, qreal refr_angle = 0 );
 
     QVector3D getAmbientColor()const{return ambient_col_;}
     void setAmbientColor(QVector3D col){ambient_col_ = col;}
@@ -36,6 +36,9 @@ public:
     void setRefractionAmount(qreal ref);
     qreal getRefractionAmount()const{return refraction_;}
 
+    void setRefractionAngle(qreal angle){ refr_angle_ = angle;}
+    qreal getRefractionAngle(){return refr_angle_;}
+
 
 
 
@@ -51,8 +54,9 @@ private:
     qreal spec_amount_;
 
     qreal reflection_;
-    qreal refraction_;
 
+    qreal refraction_;
+    qreal refr_angle_;
 
 
 };
