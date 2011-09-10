@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'renderwindow.ui'
 **
-** Created: Thu 13. May 20:57:59 2010
+** Created: Sat 10. Sep 17:17:23 2011
 **      by: Qt User Interface Compiler version 4.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

@@ -84,6 +84,7 @@
     <value type="QString">COMMONPROGRAMW6432=C:\Program Files\Common Files</value>
     <value type="QString">COMPUTERNAME=MIKKO-PC</value>
     <value type="QString">COMSPEC=C:\Windows\system32\cmd.exe</value>
+    <value type="QString">DXSDK_DIR=E:\DirectXSDK\</value>
     <value type="QString">FP_NO_HOST_CHECK=NO</value>
     <value type="QString">HOMEDRIVE=C:</value>
     <value type="QString">HOMEPATH=\Users\Mikko</value>
@@ -92,7 +93,7 @@
     <value type="QString">NUMBER_OF_PROCESSORS=4</value>
     <value type="QString">OGRE_HOME=E:\Ohjelmointi\Kirjastot\Ogre3D\OgreSDK</value>
     <value type="QString">OS=Windows_NT</value>
-    <value type="QString">PATH=E:\Qt\mingw\bin;E:\Qt\qt\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Qt\qt\bin;</value>
+    <value type="QString">PATH=E:\Qt\mingw\bin;E:\Qt\qt\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;E:\Qt\qt\bin;E:\Ohjelmointi\JavaJDK\bin;</value>
     <value type="QString">PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC</value>
     <value type="QString">PROCESSOR_ARCHITECTURE=x86</value>
     <value type="QString">PROCESSOR_ARCHITEW6432=AMD64</value>
@@ -114,7 +115,7 @@
     <value type="QString">USERDOMAIN=Mikko-PC</value>
     <value type="QString">USERNAME=Mikko</value>
     <value type="QString">USERPROFILE=C:\Users\Mikko</value>
-    <value type="QString">VS100COMNTOOLS=E:\VS2010\Common7\Tools\</value>
+    <value type="QString">VS100COMNTOOLS=e:\VS2010\Common7\Tools\</value>
     <value type="QString">VS90COMNTOOLS=E:\VS2008\Common7\Tools\</value>
     <value type="QString">WINDIR=C:\Windows</value>
    </valuelist>
@@ -141,6 +142,7 @@
     <value type="QString">COMMONPROGRAMW6432=C:\Program Files\Common Files</value>
     <value type="QString">COMPUTERNAME=MIKKO-PC</value>
     <value type="QString">COMSPEC=C:\Windows\system32\cmd.exe</value>
+    <value type="QString">DXSDK_DIR=E:\DirectXSDK\</value>
     <value type="QString">FP_NO_HOST_CHECK=NO</value>
     <value type="QString">HOMEDRIVE=C:</value>
     <value type="QString">HOMEPATH=\Users\Mikko</value>
@@ -149,7 +151,7 @@
     <value type="QString">NUMBER_OF_PROCESSORS=4</value>
     <value type="QString">OGRE_HOME=E:\Ohjelmointi\Kirjastot\Ogre3D\OgreSDK</value>
     <value type="QString">OS=Windows_NT</value>
-    <value type="QString">PATH=E:\Qt\mingw\bin;E:\Qt\qt\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Qt\qt\bin;</value>
+    <value type="QString">PATH=E:\Qt\mingw\bin;E:\Qt\qt\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;E:\Qt\qt\bin;E:\Ohjelmointi\JavaJDK\bin;</value>
     <value type="QString">PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC</value>
     <value type="QString">PROCESSOR_ARCHITECTURE=x86</value>
     <value type="QString">PROCESSOR_ARCHITEW6432=AMD64</value>
@@ -171,7 +173,7 @@
     <value type="QString">USERDOMAIN=Mikko-PC</value>
     <value type="QString">USERNAME=Mikko</value>
     <value type="QString">USERPROFILE=C:\Users\Mikko</value>
-    <value type="QString">VS100COMNTOOLS=E:\VS2010\Common7\Tools\</value>
+    <value type="QString">VS100COMNTOOLS=e:\VS2010\Common7\Tools\</value>
     <value type="QString">VS90COMNTOOLS=E:\VS2008\Common7\Tools\</value>
     <value type="QString">WINDIR=C:\Windows</value>
    </valuelist>

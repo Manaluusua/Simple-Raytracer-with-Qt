@@ -12,7 +12,7 @@ RayTracer::RayTracer(qreal image_width, qreal image_height, World *world, int de
         lock(QMutex::NonRecursive),
         depth_(depth)
 {
-    Camera* camera = new Camera(QVector3D(4,0,10), QVector3D(0,0,-1), static_cast<qreal>(image_width)/image_height, 4    );
+    Camera* camera = new Camera(QVector3D(4,30,80), QVector3D(0,-0.3,-1), static_cast<qreal>(image_width)/image_height, 4    );
     world_->setCamera(camera);
 }
 
@@ -113,8 +113,11 @@ QVector3D RayTracer::raytrace(Ray ray, int depth,Object *ignore)
         QVector3D diff_l = getDiffuseFactor(light,&inters_point, &normal, nearest->getMaterial().data());
         //specular lighting
         QVector3D spec_l = getSpecularFactor(light,&inters_point, &normal, &viewdir, nearest->getMaterial().data());
+
+        qreal shadow = calculateShadowing(light, &inters_point, objects);
+
         overall_col_from_light = diff_l + spec_l;
-        diffuse_col += overall_col_from_light;
+        diffuse_col += overall_col_from_light*shadow;
     }
 
 
@@ -150,11 +153,11 @@ QVector3D RayTracer::raytrace(Ray ray, int depth,Object *ignore)
     if( refraction_amount>0 && reflection_amount>0)
     {
 
-        final_col += refraction_amount*(diffuse_amount*diffuse_col + refraction_color) + reflection_amount*reflection_color;
+        final_col = refraction_amount*(diffuse_amount*diffuse_col + refraction_color) + reflection_amount*reflection_color;
     }
     else
     {
-        final_col += diffuse_amount*diffuse_col + refraction_amount*refraction_color + reflection_amount*reflection_color;
+        final_col = diffuse_amount*diffuse_col + refraction_amount*refraction_color + reflection_amount*reflection_color;
     }
     return final_col;
 
@@ -282,4 +285,29 @@ qreal RayTracer::calculateMaximumDelta(int x, int y)
         }
     }
     return max_diff;
+}
+qreal RayTracer::calculateShadowing(Light* const light,const QVector3D *point, QVector<Object*> &objects)
+{
+    qreal lightAmount = 1;
+    qreal depthbias = 0.01;
+    if(light->getLightType() == Light::POINT)
+    {
+
+        QVector3D dir = (*point - light->getPosition());
+        qreal length = dir.length()- depthbias;
+
+        Ray lightToPos(light->getPosition(), dir);
+
+        foreach(Object *object, objects)
+        {
+            Geometry::RayQueryResults result =  object->getGeometry()->getIntersectionInfo(lightToPos);
+            if(result.hit && result.distance<length)
+            {
+                lightAmount -= 1- object->getMaterial()->getRefractionAmount();
+
+            }
+
+        }
+    }
+    return utils::max(lightAmount,0);
 }
